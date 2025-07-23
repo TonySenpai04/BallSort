@@ -1,0 +1,43 @@
+{
+  "levels": [
+    {
+      "tubes": [
+        { "colors": ["red", "blue", "red", "blue"] },
+        { "colors": ["blue", "red", "blue", "red"] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["yellow", "green", "green", "yellow"] },
+        { "colors": ["green", "yellow", "yellow", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["purple", "orange", "purple", "orange"] },
+        { "colors": ["orange", "purple", "orange", "purple"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["blue", "green", "blue", "green"] },
+        { "colors": ["green", "blue", "green", "blue"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "yellow", "red", "yellow"] },
+        { "colors": ["yellow", "red", "yellow", "red"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    }
+  ]
+}

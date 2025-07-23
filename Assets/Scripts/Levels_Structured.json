@@ -1,0 +1,195 @@
+{
+  "levels": [
+    {
+      "tubes": [
+        { "colors": ["red", "blue", "blue", "red"] },
+        { "colors": ["blue", "red", "red", "blue"] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["yellow", "green", "green", "yellow"] },
+        { "colors": ["green", "yellow", "yellow", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["purple", "orange", "purple", "orange"] },
+        { "colors": ["orange", "purple", "orange", "purple"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "green", "blue", "green"] },
+        { "colors": ["blue", "red", "green", "blue"] },
+        { "colors": ["red", "blue", "red", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["yellow", "purple", "red", "yellow"] },
+        { "colors": ["red", "purple", "yellow", "red"] },
+        { "colors": ["purple", "red", "yellow", "purple"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["blue", "green", "yellow", "orange"] },
+        { "colors": ["orange", "blue", "yellow", "green"] },
+        { "colors": ["green", "orange", "blue", "yellow"] },
+        { "colors": ["orange", "green", "blue", "yellow"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["cyan", "purple", "green", "red"] },
+        { "colors": ["purple", "cyan", "red", "green"] },
+        { "colors": ["red", "green", "cyan", "purple"] },
+        { "colors": ["green", "purple", "red", "cyan"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["orange", "blue", "purple", "yellow"] },
+        { "colors": ["blue", "yellow", "purple", "orange"] },
+        { "colors": ["purple", "orange", "blue", "yellow"] },
+        { "colors": ["yellow", "purple", "orange", "blue"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "green", "yellow", "cyan"] },
+        { "colors": ["cyan", "yellow", "green", "red"] },
+        { "colors": ["green", "cyan", "red", "yellow"] },
+        { "colors": ["yellow", "red", "cyan", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "blue", "orange", "green"] },
+        { "colors": ["green", "orange", "red", "blue"] },
+        { "colors": ["blue", "green", "orange", "red"] },
+        { "colors": ["orange", "red", "blue", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["purple", "yellow", "cyan", "blue"] },
+        { "colors": ["cyan", "purple", "blue", "yellow"] },
+        { "colors": ["blue", "yellow", "purple", "cyan"] },
+        { "colors": ["yellow", "blue", "cyan", "purple"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "green", "orange", "cyan"] },
+        { "colors": ["green", "red", "cyan", "orange"] },
+        { "colors": ["orange", "cyan", "green", "red"] },
+        { "colors": ["cyan", "orange", "red", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["yellow", "blue", "purple", "orange"] },
+        { "colors": ["orange", "purple", "yellow", "blue"] },
+        { "colors": ["blue", "orange", "purple", "yellow"] },
+        { "colors": ["purple", "yellow", "blue", "orange"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "green", "cyan", "blue"] },
+        { "colors": ["cyan", "blue", "green", "red"] },
+        { "colors": ["green", "red", "blue", "cyan"] },
+        { "colors": ["blue", "cyan", "red", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["yellow", "orange", "purple", "cyan"] },
+        { "colors": ["cyan", "yellow", "orange", "purple"] },
+        { "colors": ["orange", "cyan", "yellow", "purple"] },
+        { "colors": ["purple", "yellow", "cyan", "orange"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "blue", "green", "orange"] },
+        { "colors": ["green", "orange", "red", "blue"] },
+        { "colors": ["blue", "red", "green", "orange"] },
+        { "colors": ["orange", "green", "blue", "red"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["purple", "yellow", "cyan", "red"] },
+        { "colors": ["cyan", "red", "yellow", "purple"] },
+        { "colors": ["yellow", "cyan", "purple", "red"] },
+        { "colors": ["red", "purple", "cyan", "yellow"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["green", "orange", "orange", "yellow"] },
+        { "colors": ["yellow", "orange", "green", "blue"] },
+        { "colors": ["orange", "green", "yellow", "blue"] },
+        { "colors": ["blue", "yellow", "blue", "green"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["red", "purple", "cyan", "yellow"] },
+        { "colors": ["cyan", "yellow", "purple", "red"] },
+        { "colors": ["purple", "red", "cyan", "yellow"] },
+        { "colors": ["yellow", "cyan", "red", "purple"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    },
+    {
+      "tubes": [
+        { "colors": ["green", "blue", "orange", "cyan"] },
+        { "colors": ["cyan", "orange", "blue", "green"] },
+        { "colors": ["blue", "green", "cyan", "orange"] },
+        { "colors": ["orange", "cyan", "green", "blue"] },
+        { "colors": [] },
+        { "colors": [] }
+      ]
+    }
+  ]
+}
