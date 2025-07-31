@@ -22,6 +22,7 @@ public class LevelLoaderFromJSON : MonoBehaviour
         colorMap["yellow"] = Color.yellow;
         colorMap["purple"] = new Color(0.6f, 0f, 0.8f);
         colorMap["orange"] = new Color(1f, 0.5f, 0f);
+        currentLevelIndex = PlayerPrefs.GetInt("current_level", 0);
 
         LoadJSON();
     }
@@ -107,7 +108,6 @@ public class LevelLoaderFromJSON : MonoBehaviour
                     continue;
                 }
 
-                // Nếu không có màu hợp lệ thì cũng bỏ qua
                 if (!colorMap.ContainsKey(colorName.ToLower()))
                 {
                     Debug.LogWarning($"⚠️ tube {i}: màu '{colorName}' không tồn tại trong colorMap");
@@ -141,7 +141,9 @@ public class LevelLoaderFromJSON : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevelIndex = (currentLevelIndex + 1) % levelWrapper.levels.Count;
-        LoadLevel(currentLevelIndex);
+        PlayerPrefs.SetInt("current_level", currentLevelIndex);
+        PlayerPrefs.Save();
+      
     }
     public void LoadCurentLevel()
     {

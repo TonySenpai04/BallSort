@@ -22,43 +22,53 @@ public class InputManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(position);
         RaycastHit[] hits = Physics.RaycastAll(ray);
 
-        Tube hitTube = null;
+        Ball hitBall = null;
+        Tube targetTube = null;
 
         foreach (var hit in hits)
         {
-            Ball ball = hit.collider.GetComponent<Ball>();
-            if (ball != null)
+            if (hitBall == null)
             {
-                Tube parentTube = ball.transform.parent.GetComponent<Tube>();
+                hitBall = hit.collider.GetComponent<Ball>();
+            }
+
+            if (targetTube == null)
+            {
+                targetTube = hit.collider.GetComponent<Tube>();
+            }
+        }
+        if (hitBall != null)
+        {
+            Tube parentTube = hitBall.transform.parent.GetComponent<Tube>();
+
+            if (GameManager.instance.HasSelectedBall())
+            {
                 if (parentTube != null)
                 {
-                    // Nếu click lại chính bóng đang được chọn → hủy chọn
-                    if (GameManager.instance.IsSelectedBall(ball))
-                    {
-                        GameManager.instance.UnselectBall();
-                    }
-                    // Nếu chưa có bóng nào được chọn → chọn bóng
-                    else if (!GameManager.instance.HasSelectedBall())
-                    {
-                        GameManager.instance.SelectBall(ball, parentTube);
-                    }
-
-                    return; // Ưu tiên xử lý ball xong thì không xét tiếp
+                    GameManager.instance.TryMoveSelectedBallTo(parentTube);
                 }
+                return;
             }
 
-            // Nếu là tube thì lưu lại (chỉ xử lý sau nếu đã có bóng được chọn)
-            if (hitTube == null)
+            if (parentTube != null)
             {
-                hitTube = hit.collider.GetComponent<Tube>();
+                if (GameManager.instance.IsSelectedBall(hitBall))
+                {
+                    GameManager.instance.UnselectBall();
+                }
+                else
+                {
+                    GameManager.instance.SelectBall(hitBall, parentTube);
+                }
+                return;
             }
         }
 
-        // Nếu có bóng đang chọn và có tube bị hit → xử lý move
-        if (GameManager.instance.HasSelectedBall() && hitTube != null)
+        if (GameManager.instance.HasSelectedBall() && targetTube != null)
         {
-            hitTube.OnMouseDown();
+            GameManager.instance.TryMoveSelectedBallTo(targetTube);
         }
     }
+
 
 }

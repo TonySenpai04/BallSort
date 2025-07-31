@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour
 
     public void RaiseBall()
     {
-        originalLocalPos = transform.localPosition; // Lưu vị trí trước khi nâng
+        originalLocalPos = transform.localPosition;
 
         Tube parentTube = transform.parent.GetComponent<Tube>();
         if (parentTube == null)

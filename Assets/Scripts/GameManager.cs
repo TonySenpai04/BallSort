@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
             selectedBall = ball;
             fromTube = tube;
             ball.RaiseBall();
+            SoundManager.instance?.PlayClick();
         }
     }
     private void Update()
@@ -41,28 +42,53 @@ public class GameManager : MonoBehaviour
     {
         if (selectedBall == null || fromTube == null) return;
 
-        if (targetTube.CanAddBall(selectedBall))
+        // ❌ Không cho thả vào chính tube cũ
+        if (targetTube == fromTube)
         {
-            fromTube.RemoveTopBall();
-            targetTube.AddBall(selectedBall);
-
-            
-            selectedBall = null;
-            fromTube = null;
-
-            if (CheckWin())
-            {
-                winPanel.SetActive(true);
-                StartCoroutine(NextLevelDelay(1f)); 
-            }
+            UnselectBall(); // trả về vị trí cũ
+            return;
         }
-        else
+
+        Ball currentBall = selectedBall;
+
+        if (!targetTube.CanAddBall(currentBall))
         {
             selectedBall.ReturnToOriginalPosition();
-            fromTube = null;
             selectedBall = null;
+            fromTube = null;
+            SoundManager.instance?.PlayFail();
+            return;
+        }
+
+        // ✅ Chuyển các bóng liên tiếp cùng màu
+        while (currentBall != null && targetTube.CanAddBall(currentBall))
+        {
+            fromTube.RemoveTopBall();
+            targetTube.AddBall(currentBall);
+            SoundManager.instance?.PlayDrop();
+            Ball nextBall = fromTube.PeekTopBall();
+
+            if (nextBall != null && nextBall.ballColor == currentBall.ballColor)
+            {
+                currentBall = nextBall;
+            }
+            else
+            {
+                currentBall = null;
+            }
+        }
+
+        selectedBall = null;
+        fromTube = null;
+
+        if (CheckWin())
+        {
+            winPanel.SetActive(true);
+            StartCoroutine(NextLevelDelay(1f));
         }
     }
+
+
     public bool HasSelectedBall()
     {
         return selectedBall != null;
@@ -79,6 +105,7 @@ public class GameManager : MonoBehaviour
             selectedBall.ReturnToOriginalPosition();
             selectedBall = null;
             fromTube = null;
+            SoundManager.instance?.PlayFail();
         }
     }
 
@@ -93,12 +120,14 @@ public class GameManager : MonoBehaviour
         }
     private IEnumerator NextLevelDelay(float delay)
     {
+        levelLoader.LoadNextLevel();
         yield return new WaitForSeconds(delay);
         winPanel.SetActive(false);
 
         if (levelLoader != null)
         {
-            levelLoader.LoadNextLevel();
+            levelLoader. LoadLevel(levelLoader.currentLevelIndex);
+           
         }
         else
         {
