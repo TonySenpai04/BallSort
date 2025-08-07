@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip clickSound;
     public AudioClip dropSound;
     public AudioClip failSound;
+    public AudioClip clickButtonSound;
 
     private AudioSource audioSource;
 
@@ -37,7 +38,11 @@ public class SoundManager : MonoBehaviour
         if (clickSound != null)
             audioSource.PlayOneShot(clickSound);
     }
-
+    public void PlayButtonClick()
+    {
+        if (clickSound != null)
+            audioSource.PlayOneShot(clickButtonSound);
+    }
     public void PlayDrop()
     {
         if (dropSound != null)

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LevelLoaderFromJSON : MonoBehaviour
 {
@@ -84,11 +84,16 @@ public class LevelLoaderFromJSON : MonoBehaviour
         ClearLevel();
 
         float spacing = 3f;
+        int columns = 3;
+        int totalTubes = data.tubes.Count;
+        int rows = Mathf.CeilToInt((float)totalTubes / columns);
+        float yOffset = -(rows - 1) * 1f;
+  
         for (int i = 0; i < data.tubes.Count; i++)
         {
             int col = i % 3;
             int row = i / 3;
-            Vector3 pos = new Vector3(col * spacing, row *7f, 0);
+            Vector3 pos = new Vector3(col * spacing, row *5f+ yOffset, 0);
 
             GameObject tubeObj = Instantiate(tubePrefab, pos, Quaternion.identity, tubeParent);
             Tube tube = tubeObj.GetComponent<Tube>();
@@ -127,6 +132,7 @@ public class LevelLoaderFromJSON : MonoBehaviour
             }
 
         }
+
     }
 
     public void ClearLevel()
