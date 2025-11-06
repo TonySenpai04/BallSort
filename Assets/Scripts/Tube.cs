@@ -1,13 +1,27 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Tube : MonoBehaviour
+public class Tube : MonoBehaviour, IPointerClickHandler
 {
+    public RectTransform parentPanel; // optional: assign a Panel (RectTransform) in the Canvas to host this tube
     public Stack<Ball> balls = new Stack<Ball>();
-    public Transform[] ballPositions;
-    public int maxCapacity => ballPositions.Length;
+    public RectTransform[] ballPositions;
+    public int maxCapacity => ballPositions != null ? ballPositions.Length : 0;
+    public Image tubeImage;
 
-    public void OnMouseDown()
+    private void Awake()
+    {
+        tubeImage = GetComponent<Image>();
+        // If a parentPanel is provided, ensure this tube is a child of that panel (useful for Canvas UI layout)
+        if (parentPanel != null && transform.parent != parentPanel)
+        {
+            transform.SetParent(parentPanel, false);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (balls.Count < maxCapacity)
         {
@@ -20,8 +34,26 @@ public class Tube : MonoBehaviour
         if (ball == null) return;
 
         balls.Push(ball);
+        // set parent reference on the ball
+        ball.parentTube = this;
 
-        ball.transform.parent = transform;
+        // Work with UI RectTransform for balls and positions
+        RectTransform ballRect = ball.GetComponent<RectTransform>();
+        if (ballRect == null)
+        {
+            ballRect = ball.gameObject.AddComponent<RectTransform>();
+        }
+
+        // Parent the ball under this tube's RectTransform (false keeps local UI layout)
+        RectTransform myRect = transform as RectTransform;
+        if (myRect != null)
+        {
+            ballRect.SetParent(myRect, false);
+        }
+        else
+        {
+            ballRect.SetParent(transform, false);
+        }
 
         int index = balls.Count - 1;
 
@@ -31,25 +63,22 @@ public class Tube : MonoBehaviour
             return;
         }
 
-        ball.transform.localPosition = ballPositions[index].localPosition;
+        // Use anchoredPosition so UI aligns with configured slots
+        ballRect.anchoredPosition = ballPositions[index].anchoredPosition;
     }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        if (ballPositions != null)
-        {
-            for (int i = 0; i < ballPositions.Length; i++)
-            {
-                Gizmos.DrawSphere(ballPositions[i].position, 0.1f);
-            }
-        }
-    }
+    // Remove OnDrawGizmosSelected as it's not needed for UI elements
 
 
     public Ball RemoveTopBall()
     {
         if (balls.Count == 0) return null;
-        return balls.Pop();
+        Ball b = balls.Pop();
+        if (b != null)
+        {
+            // clear parentTube while the ball is in transit
+            b.parentTube = null;
+        }
+        return b;
     }
 
     public Ball PeekTopBall()
