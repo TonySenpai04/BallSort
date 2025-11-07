@@ -17,6 +17,7 @@ public class LevelLoaderFromJSON : MonoBehaviour
 
     public int currentLevelIndex = 0;
     public TextAsset jsonText;
+    public LevelJsonWrapper LevelWrapper => levelWrapper;
 
     void Awake()
     {
@@ -27,15 +28,18 @@ public class LevelLoaderFromJSON : MonoBehaviour
         colorMap["yellow"] = Color.yellow;
         colorMap["purple"] = new Color(0.6f, 0f, 0.8f);
         colorMap["orange"] = new Color(1f, 0.5f, 0f);
-        currentLevelIndex = PlayerPrefs.GetInt("current_level", 0);
+    // Previously we read current level index from PlayerPrefs using the key "current_level".
+    // Now we keep the saved progress as the number of unlocked levels (key: "unlocked_levels").
+    // LevelLoader will start at level 0 by default; unlocked progress is handled by LevelButtonManager.
+    currentLevelIndex = 0;
 
         LoadJSON();
     }
 
-    private void Start()
-    {
-        LoadLevel(currentLevelIndex);
-    }
+    // private void Start()
+    // {
+    //     LoadLevel(currentLevelIndex);
+    // }
 
     void LoadJSON()
     {
@@ -183,9 +187,7 @@ public class LevelLoaderFromJSON : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevelIndex = (currentLevelIndex + 1) % levelWrapper.levels.Count;
-        PlayerPrefs.SetInt("current_level", currentLevelIndex);
-        PlayerPrefs.Save();
-      
+   
     }
     public void LoadCurentLevel()
     {
