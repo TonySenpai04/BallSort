@@ -12,7 +12,7 @@ public class LevelButton : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI levelText;
     
     private Image buttonImage;
-    private int levelIndex;
+    public int levelIndex;
     private bool isLocked;
     private LevelLoaderFromJSON levelLoader;
     private GameObject playZone; // Sẽ tìm dynamic

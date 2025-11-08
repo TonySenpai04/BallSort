@@ -71,5 +71,8 @@ public class GameManager : MonoBehaviour
     {
         return moveController != null && moveController.IsSelectedBall(ball);
     }
+    public void Replay(){
+        levelLoader.LoadCurentLevel();
+    }
 
 }

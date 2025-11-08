@@ -14,19 +14,24 @@ public class LevelButtonManager : MonoBehaviour, ILevelButtonManager
     [SerializeField] private int totalLevels;
     [SerializeField] private int unlockedLevels = 1;
 
+    [Header("Pagination Settings")]
+    [SerializeField] private int buttonsPerPage = 60;
+    private int currentPage = 0;
+    private int totalPages = 0;
+
     private List<LevelButton> levelButtons = new List<LevelButton>();
-   [SerializeField] private LevelLoaderFromJSON levelLoader;
+    [SerializeField] private LevelLoaderFromJSON levelLoader;
     private IProgressService progressService;
     private LevelButtonFactory buttonFactory;
     private ContainerLayoutManager layoutManager;
+
     public static LevelButtonManager instance;
 
     void Awake()
     {
         instance = this;
         progressService = new ProgressService();
-        buttonFactory = new LevelButtonFactory(levelButtonPrefab, buttonContainer,
-        playZone,levelLoader);
+        buttonFactory = new LevelButtonFactory(levelButtonPrefab, buttonContainer, playZone, levelLoader);
         layoutManager = new ContainerLayoutManager(buttonContainer);
     }
 
@@ -34,7 +39,11 @@ public class LevelButtonManager : MonoBehaviour, ILevelButtonManager
     {
         InitializeLevelCount();
         InitializeProgress();
-        CreateButtons();
+
+        totalPages = Mathf.CeilToInt((float)totalLevels / buttonsPerPage);
+        currentPage = 0;
+
+        CreateButtonsForPage(currentPage);
         UpdateAllButtonStates();
     }
 
@@ -52,14 +61,17 @@ public class LevelButtonManager : MonoBehaviour, ILevelButtonManager
         unlockedLevels = progressService.UnlockedLevels;
     }
 
-    private void CreateButtons()
+    private void CreateButtonsForPage(int pageIndex)
     {
         if (buttonContainer == null) return;
 
         layoutManager.ClearContainer();
         levelButtons.Clear();
 
-        for (int i = 0; i < totalLevels; i++)
+        int startIndex = pageIndex * buttonsPerPage;
+        int endIndex = Mathf.Min(startIndex + buttonsPerPage, totalLevels);
+
+        for (int i = startIndex; i < endIndex; i++)
         {
             var button = buttonFactory.CreateButton(i, i < unlockedLevels);
             if (button != null)
@@ -77,7 +89,7 @@ public class LevelButtonManager : MonoBehaviour, ILevelButtonManager
         {
             if (levelButtons[i] != null)
             {
-                bool isUnlocked = i < unlockedLevels;
+                bool isUnlocked = levelButtons[i].levelIndex < unlockedLevels;
                 levelButtons[i].UpdateVisuals(isUnlocked);
             }
         }
@@ -86,24 +98,16 @@ public class LevelButtonManager : MonoBehaviour, ILevelButtonManager
     public void OnLevelCompleted(int levelIndex)
     {
         SetLevelCompleted(levelIndex);
-
         if (levelIndex + 1 >= unlockedLevels)
         {
             unlockedLevels = Mathf.Max(unlockedLevels, levelIndex + 2);
         }
-
         UpdateAllButtonStates();
     }
 
-    public void PersistProgress()
-    {
-        progressService.Persist();
-    }
-        
-    private bool IsLevelCompleted(int levelIndex)
-    {
-        return progressService.IsCompleted(levelIndex);
-    }
+    public void PersistProgress() => progressService.Persist();
+
+    private bool IsLevelCompleted(int levelIndex) => progressService.IsCompleted(levelIndex);
 
     private void SetLevelCompleted(int levelIndex)
     {
@@ -115,6 +119,31 @@ public class LevelButtonManager : MonoBehaviour, ILevelButtonManager
     {
         progressService.Reset();
         unlockedLevels = progressService.UnlockedLevels;
+        CreateButtonsForPage(currentPage);
         UpdateAllButtonStates();
     }
+
+    // 🔹 Hàm chuyển trang
+    public void NextPage()
+    {
+        if (currentPage < totalPages - 1)
+        {
+            currentPage++;
+            CreateButtonsForPage(currentPage);
+            UpdateAllButtonStates();
+        }
+    }
+
+    public void PreviousPage()
+    {
+        if (currentPage > 0)
+        {
+            currentPage--;
+            CreateButtonsForPage(currentPage);
+            UpdateAllButtonStates();
+        }
+    }
+
+    public int GetCurrentPage() => currentPage + 1;
+    public int GetTotalPages() => totalPages;
 }
