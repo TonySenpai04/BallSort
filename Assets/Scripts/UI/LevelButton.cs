@@ -55,6 +55,7 @@ public class LevelButton : MonoBehaviour, IPointerClickHandler
         playZone.SetActive(true);
         levelLoader.currentLevelIndex = levelIndex;
         levelLoader.LoadLevel(levelIndex);
+        SoundManager.instance.PlayButtonClick();
         
         // Hide the level selection UI (assuming it's in a panel)
         Transform levelSelectPanel = transform.parent.parent; // Adjust based on your hierarchy

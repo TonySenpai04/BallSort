@@ -187,6 +187,7 @@ public class LevelLoaderFromJSON : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevelIndex = (currentLevelIndex + 1) % levelWrapper.levels.Count;
+        LoadLevel(currentLevelIndex);
    
     }
     public void LoadCurentLevel()

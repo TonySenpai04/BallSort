@@ -46,11 +46,19 @@ public class GameManager : MonoBehaviour
     {
         if (winChecker.CheckWin())
         {
+            SoundManager.instance.PlayWin();
+            int completedIndex = levelLoader?.currentLevelIndex ?? 0;
+            if (!GoldManager.instance.HasReceivedReward(completedIndex))
+            {
+                GoldManager.instance.AddGold(50);
+                GoldManager.instance.MarkLevelRewarded(completedIndex);
+                Debug.Log($"💰 Received reward for level {completedIndex}");
+            }
             uiManager.ShowWinPanel(true);
 
             if (LevelButtonManager.instance != null)
             {
-                int completedIndex = levelLoader?.currentLevelIndex ?? 0;
+
                 LevelButtonManager.instance.OnLevelCompleted(completedIndex);
                 LevelButtonManager.instance.PersistProgress();
             }
@@ -71,8 +79,14 @@ public class GameManager : MonoBehaviour
     {
         return moveController != null && moveController.IsSelectedBall(ball);
     }
-    public void Replay(){
+    public void Replay()
+    {
         levelLoader.LoadCurentLevel();
+    }
+    public void NextLevel()
+    {
+
+        levelLoader.LoadNextLevel();
     }
 
 }

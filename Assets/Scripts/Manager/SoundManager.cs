@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -9,8 +11,11 @@ public class SoundManager : MonoBehaviour
     public AudioClip dropSound;
     public AudioClip failSound;
     public AudioClip clickButtonSound;
+    public AudioClip winSound;
 
     private AudioSource audioSource;
+
+    public List<Button> buttons = new List<Button>();
 
     void Awake()
     {
@@ -31,8 +36,20 @@ public class SoundManager : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
-    }
+        foreach (Button button in buttons)
+        {
+            AddButtonSound(button);
+        }
 
+    }
+    public void AddButtonSound(Button button)
+    {
+        if (button != null )
+        {
+            button.onClick.AddListener(PlayButtonClick);
+            
+        }
+    }
     public void PlayClick()
     {
         if (clickSound != null)
@@ -53,5 +70,10 @@ public class SoundManager : MonoBehaviour
     {
         if (failSound != null)
             audioSource.PlayOneShot(failSound);
+    }
+     public void PlayWin()
+    {
+        if (winSound != null)
+            audioSource.PlayOneShot(winSound);
     }
 }

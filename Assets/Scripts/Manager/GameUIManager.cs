@@ -12,7 +12,7 @@ public class GameUIManager : MonoBehaviour
         if (levelLoader != null && levelTxt != null)
         {
             int level = levelLoader.currentLevelIndex + 1;
-            levelTxt.text = $"Level: {level}";
+            levelTxt.text = $"Level {level}";
         }
     }
 
